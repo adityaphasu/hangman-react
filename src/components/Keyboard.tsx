@@ -1,3 +1,5 @@
+import { act } from "react";
+
 const KEYS = [
   "a",
   "b",
@@ -27,12 +29,33 @@ const KEYS = [
   "z",
 ];
 
-const Keyboard = () => {
+type KeyboardProps = {
+  disabled: boolean;
+  activeLetters: string[];
+  inactiveLetters: string[];
+  addGuessedLetter: (letter: string) => void;
+};
+
+const Keyboard = ({
+  disabled,
+  activeLetters,
+  inactiveLetters,
+  addGuessedLetter,
+}: KeyboardProps) => {
   return (
     <div className="keyboard">
       {KEYS.map((key) => {
+        const isActive = activeLetters.includes(key);
+        const isInactive = inactiveLetters.includes(key);
+
         return (
-          <button key={key} className="keyboard-button">
+          <button
+            onClick={() => addGuessedLetter(key)}
+            key={key}
+            className={`keyboard-button 
+              ${isActive ? "active" : ""} 
+              ${isInactive ? "inactive" : ""}`}
+            disabled={isActive || isInactive || disabled}>
             {key}
           </button>
         );

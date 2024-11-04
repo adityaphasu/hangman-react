@@ -157,3 +157,7 @@
 .keyboard-button.inactive {
   opacity: 0.3;
 }
+
+.keyboard-button:disabled {
+  cursor: default;
+}
